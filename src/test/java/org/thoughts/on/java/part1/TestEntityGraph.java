@@ -6,6 +6,7 @@
 package org.thoughts.on.java.part1;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.management.Attribute;
@@ -44,8 +45,8 @@ public class TestEntityGraph {
         EntityGraph<Author> graph = em.createEntityGraph(Author.class);
       
   
-        Subgraph<Book> bookSubGraph = graph.addSubgraph(Author_.books);
-        bookSubGraph.addSubgraph(Book_.reviews);
+        Subgraph<Set<Book>> bookSubGraph = graph.addSubgraph(Author_.books);
+       // bookSubGraph.addSubgraph(Book_.reviews);
         
         List<Author> authors = em.createQuery("SELECT DISTINCT a FROM Author a",
                 Author.class).setHint("javax.persistence.fetchgraph", graph).getResultList();
